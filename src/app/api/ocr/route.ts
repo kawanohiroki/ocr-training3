@@ -2,10 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
 import { createClient } from '@/lib/supabase/server'
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-})
-
 // HEIC → JPEG変換（サーバーサイド）
 async function convertHeicToJpeg(buffer: Buffer): Promise<Buffer<ArrayBuffer>> {
   const heicConvert = await import('heic-convert')
@@ -78,7 +74,8 @@ export async function POST(request: NextRequest) {
       mediaType = 'image/webp'
     }
 
-    // Claude APIでOCR処理
+    // Claude APIでOCR処理（ビルド時エラーを避けるため関数内で初期化）
+    const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
     const base64Image = imageBuffer.toString('base64')
 
     const message = await anthropic.messages.create({

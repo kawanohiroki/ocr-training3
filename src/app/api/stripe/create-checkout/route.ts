@@ -2,24 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { createClient } from '@/lib/supabase/server'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2026-04-22.dahlia',
-})
-
-// クレジットパック定義（Stripe Price IDは環境変数から取得）
+// クレジットパック定義
 const CREDIT_PACKS = [
-  {
-    id: 'pack_30',
-    credits: 30,
-    price: 500,
-    priceId: process.env.STRIPE_PRICE_30_CREDITS!,
-  },
-  {
-    id: 'pack_100',
-    credits: 100,
-    price: 1500,
-    priceId: process.env.STRIPE_PRICE_100_CREDITS!,
-  },
+  { id: 'pack_30', credits: 30, price: 500 },
+  { id: 'pack_100', credits: 100, price: 1500 },
 ]
 
 export async function POST(request: NextRequest) {
@@ -39,6 +25,11 @@ export async function POST(request: NextRequest) {
     if (!pack) {
       return NextResponse.json({ error: '無効なクレジットパックです' }, { status: 400 })
     }
+
+    // ビルド時エラーを避けるため関数内で初期化
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+      apiVersion: '2026-04-22.dahlia',
+    })
 
     const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
 
