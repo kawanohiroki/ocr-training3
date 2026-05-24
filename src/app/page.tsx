@@ -1,65 +1,87 @@
-import Image from "next/image";
+import Link from 'next/link'
+import Navbar from '@/components/Navbar'
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+
+      <main className="flex-1 flex items-center justify-center px-4 py-16">
+        <div className="max-w-2xl w-full text-center">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            書物のテキストを
+            <br />
+            <span className="text-indigo-600">AIで自動起こし</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-lg text-gray-600 mb-8">
+            書物のページを撮影した画像をアップロードするだけで、
+            Claude AIが高精度でテキストを書き起こします。
+            HEIC・JPEG・PNG・WebP形式に対応。
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+          <div className="flex gap-4 justify-center mb-12">
+            <Link
+              href="/register"
+              className="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+            >
+              無料で始める（5回分）
+            </Link>
+            <Link
+              href="/login"
+              className="bg-white text-indigo-600 border border-indigo-600 px-6 py-3 rounded-lg font-medium hover:bg-indigo-50 transition-colors"
+            >
+              ログイン
+            </Link>
+          </div>
+
+          {/* 機能説明 */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="text-2xl mb-2">📷</div>
+              <h3 className="font-semibold text-gray-900 mb-1">HEIC対応</h3>
+              <p className="text-sm text-gray-600">
+                iPhoneで撮影したHEIC形式の画像もそのままアップロード可能
+              </p>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="text-2xl mb-2">🤖</div>
+              <h3 className="font-semibold text-gray-900 mb-1">AI高精度OCR</h3>
+              <p className="text-sm text-gray-600">
+                Claude AIが日本語・英語を問わず高精度でテキストを書き起こし
+              </p>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="text-2xl mb-2">📚</div>
+              <h3 className="font-semibold text-gray-900 mb-1">履歴管理</h3>
+              <p className="text-sm text-gray-600">
+                過去に処理したテキストをマイページで管理・ダウンロード可能
+              </p>
+            </div>
+          </div>
+
+          {/* 料金プラン */}
+          <div className="mt-12">
+            <h2 className="text-xl font-bold text-gray-900 mb-6">料金プラン</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-green-50 border border-green-200 rounded-xl p-5">
+                <div className="font-semibold text-green-700 mb-1">新規登録特典</div>
+                <div className="text-2xl font-bold text-gray-900">無料</div>
+                <div className="text-sm text-gray-600 mt-1">5回分のクレジット</div>
+              </div>
+              <div className="bg-white border border-gray-200 rounded-xl p-5">
+                <div className="font-semibold text-gray-700 mb-1">ライトパック</div>
+                <div className="text-2xl font-bold text-gray-900">¥500</div>
+                <div className="text-sm text-gray-600 mt-1">30回分のクレジット</div>
+              </div>
+              <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-5">
+                <div className="font-semibold text-indigo-700 mb-1">スタンダードパック</div>
+                <div className="text-2xl font-bold text-gray-900">¥1,500</div>
+                <div className="text-sm text-gray-600 mt-1">100回分のクレジット</div>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </div>
-  );
+  )
 }
